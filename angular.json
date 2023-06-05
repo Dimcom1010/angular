@@ -30,7 +30,17 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.less"
+              "src/styles.less",
+              {
+                "input": "src/app/styles/light.less",
+                "bundleName": "light",
+                "inject": false
+            },
+            {
+                "input": "src/app/styles/dark.less",
+                "bundleName": "dark",
+                "inject": false
+            }
             ],
             "scripts": []
           },
