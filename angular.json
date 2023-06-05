@@ -93,12 +93,26 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.less"
+              "src/styles.less",
+              {
+                "input": "src/assets/theme/light.less",
+                "bundleName": "light",
+                "inject": false
+            },
+            {
+                "input": "src/assets/theme/dark.less",
+                "bundleName": "dark",
+                "inject": false
+            }
+
             ],
             "scripts": []
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "b16bde47-3b84-40da-af60-70067538e688"
   }
 }
