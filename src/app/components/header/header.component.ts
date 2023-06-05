@@ -3,12 +3,19 @@ import { CommonModule } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { SwitchComponent } from './components/switch/switch.component';
 import { LogoComponent } from './components/logo/logo.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.less'],
   standalone: true,
-  imports: [CommonModule, NzButtonModule, SwitchComponent, LogoComponent],
+  imports: [
+    CommonModule,
+    NzButtonModule,
+    SwitchComponent,
+    LogoComponent,
+    MenuComponent,
+  ],
 })
 export class HeaderComponent {}

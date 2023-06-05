@@ -11,7 +11,7 @@ import { Themes, ThemeService } from 'src/app/services/theme.service';
   styleUrls: ['./switch.component.less'],
 })
 export class SwitchComponent implements OnInit, AfterViewInit {
-  switchValue = false;
+  switchValue = this.themeService.theme$.value !== Themes.LIGHT;
   constructor(private themeService: ThemeService) {}
 
   ngOnInit(): void {}
