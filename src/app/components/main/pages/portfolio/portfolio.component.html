@@ -1,1 +1,17 @@
-<p>portfolio works!</p>
+<!-- <div class="wpapper">
+  <ng-container *ngIf="photos | async as data; then complite else loading"></ng-container>
+</div>
+
+<ng-template #loading>
+  loading
+</ng-template>
+<ng-template #complite let-data>
+  <ng-container *ngFor="let photo of data">
+    <div class="photo">
+    </div>
+  </ng-container>
+</ng-template> -->
+<ng-container *ngFor="let photo of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]">
+  <img src="/assets/img/photos/photo_{{photo}}.jpg" alt="{{photo}}">
+
+</ng-container>
