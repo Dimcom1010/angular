@@ -20,4 +20,7 @@ export class PortfolioComponent implements OnInit {
     this.photos = this._fotoService.getFotos();
 
   }
+  show(id:number){
+    console.log('test',id)
+  }
 }

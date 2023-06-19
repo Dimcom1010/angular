@@ -1,6 +1,24 @@
 .header-menu {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
 }
+
+@media only screen and (max-width: 600px) {
+  .header-menu {
+    display: grid;
+    grid-template-columns: 1fr auto ;
+    align-items: center;
+  }
+  .menu{
+    justify-items: end;
+  }
+}
+
+// Device	Width
+// Phone with portrait mode	min-width:320px
+// Phone with Landscape mode	min-width:480px
+// Portrait Tablet and iPads	min-width:600px
+// Landscape Tablet and iPads	min-width:801px
+// Laptop and desktops	min-width:1025px
+// High Resolution desktops	min-width:1281px

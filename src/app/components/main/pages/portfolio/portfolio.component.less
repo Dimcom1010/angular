@@ -1,8 +1,36 @@
-.wpapper {
-  width: 100%;
-  display: grid;
 
+body {
+  background-color: #000;
+  font: 1.1em Arial, Helvetica, sans-serif;
 }
-.columns {
 
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.card {
+  margin: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  margin-bottom: 10px;
+  break-inside: avoid;
+  cursor: pointer;
+}
+
+.container {
+  column-count: 3;
+  column-gap: 10px;
+}
+@media only screen and (max-width: 900px)  {
+  .container {
+    column-count: 2;
+    column-gap: 10px;
+  }
+}
+@media only screen and (max-width:600px)  {
+  .container {
+    column-count: 1;
+    column-gap: 10px;
+  }
 }
