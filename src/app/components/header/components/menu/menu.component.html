@@ -1,8 +1,10 @@
-<div class="menu">
-  <span class="line active"></span>
-    <div class="menu__items active">
-        <app-button link="/" name="about me"></app-button>
-        <app-button link="/portfolio" name="portfolio"></app-button>
-        <app-button link="/contacts" name="contacts"></app-button>
-    </div>
+<div class="back"></div>
+<div class="menu" (click)="menuTrigger()">
+  <span class="line" [ngClass]="{active:isActive$ | async}"></span>
+</div>
+
+<div class="menu__items" [ngClass]="{active:isActive$ | async}">
+    <app-button link="/" name="about me"></app-button>
+    <app-button link="/portfolio" name="portfolio"></app-button>
+    <app-button link="/contacts" name="contacts"></app-button>
 </div>
