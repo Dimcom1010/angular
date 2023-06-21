@@ -1,0 +1,31 @@
+
+  <div class="slider__wrapper">
+    <div class="slider__container">
+
+
+      <div class="slider__back" (click)="back()">Back to Portfolio</div>
+
+      <div class="slider__main-photo">
+        <img src="/assets/img/photos/photo_{{ photoId }}.jpg" loading="lazy" alt="photo_" />
+        <div class="slider__main-title">title</div>
+        <div class="slider__main-date">date</div>
+        <div class="slider__main-name">name</div>
+      </div>
+      <!-- <div class="slider__photos_wrapper">
+        <ng-container
+          *ngFor="
+            let photo of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+          "
+        >
+          <div class="card">
+            <img
+              src="/assets/img/photos/photo_{{ photo }}.jpg"
+              loading="lazy"
+              alt="photo_{{ photo }}"
+            />
+          </div>
+        </ng-container>
+      </div> -->
+    </div>
+  </div>
+
