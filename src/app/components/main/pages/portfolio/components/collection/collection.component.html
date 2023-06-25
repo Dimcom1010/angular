@@ -1,0 +1,42 @@
+<ng-container *ngIf="photos$ | async as data">
+  <carousel>
+  <ng-container *ngFor="let photo of data.data">
+    <slide>
+    <img
+    src="/assets/img/photos/collections/{{ data.folder }}/{{photo}}"
+    loading="lazy"
+    alt="photo"
+  />
+  <div class="carousel-caption">
+    <h3>Slide 1</h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  </div>
+</slide>
+  </ng-container>
+</carousel>
+</ng-container>
+
+
+<!-- <carousel>
+  <slide>
+    <img src="https://picsum.photos/seed/picsum/200/300" alt="Slide 1">
+    <div class="carousel-caption">
+      <h3>Slide 1</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+  </slide>
+  <slide>
+    <img src="https://picsum.photos/seed/picsum/200/300" alt="Slide 2">
+    <div class="carousel-caption">
+      <h3>Slide 2</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+  </slide>
+  <slide>
+    <img src="https://picsum.photos/seed/picsum/200/300" alt="Slide 3">
+    <div class="carousel-caption">
+      <h3>Slide 3</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+  </slide>
+</carousel> -->

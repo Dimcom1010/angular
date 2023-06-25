@@ -3,35 +3,23 @@ import { Component, OnInit } from '@angular/core';
 import { GetFotosService } from './services/get-fotos.service';
 import { HttpClientModule } from '@angular/common/http';
 import { SliderComponent } from './components/slider/slider.component';
-import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-portfolio',
   templateUrl: './portfolio.component.html',
   styleUrls: ['./portfolio.component.less'],
   standalone: true,
-  imports: [CommonModule, HttpClientModule,SliderComponent],
+  imports: [CommonModule, HttpClientModule, SliderComponent],
 })
 export class PortfolioComponent implements OnInit {
-  isOpenSlider$=new BehaviorSubject<boolean>(false)
-  selectedPhotoID$=new BehaviorSubject<number>(1)
-  isLoading:boolean=false;
-
-  photos: any;
-
-  constructor(private _fotoService: GetFotosService) {}
-   ngOnInit(): void {
-    this.photos = this._fotoService.getFotos();
-
+  photosData$:Observable<any> | undefined
+  constructor(private router: Router, private readonly fotosService:GetFotosService) {}
+  ngOnInit(): void {
+    this.photosData$= this.fotosService.getFotos()
   }
-  openSlider(id:number){
-    console.log('test',id);
-    this.isOpenSlider$.next(true);
-    this.selectedPhotoID$.next(id);
+  openSlider(collectionName: string) {
+    this.router.navigate([`collection`], { queryParams: { collectionName } });
   }
-  closeSlider(){
-    this.isOpenSlider$.next(false)
-  }
-
-
 }

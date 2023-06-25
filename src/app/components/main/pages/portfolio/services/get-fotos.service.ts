@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { mergeMap, tap } from 'rxjs';
+import { catchError, map, mergeMap, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,10 +9,29 @@ export class GetFotosService {
   constructor(private httpClient: HttpClient) {}
 
   getFotos = () => {
-    const res: any = [];
-    const URL: string = 'http://jsonplaceholder.typicode.com/photos';
+    const URL: string = 'http://localhost:3000/api/photos';
+
     return this.httpClient.get(URL).pipe(
-      tap(e=>console.log(e)),
+      tap((e) => console.log(e)),
+      catchError((error: HttpErrorResponse) => {
+        // Обработка ошибки
+        console.error(error);
+        return throwError(error);
+      })
+    );
+  };
+  getCollections = (name: any) => {
+    const URL: string = 'http://localhost:3000/api/collection';
+
+    const collectionName = name;
+
+    return this.httpClient.get(URL, { params: { collectionName } }).pipe(
+      tap((e) => console.log(e)),
+      catchError((error: HttpErrorResponse) => {
+        // Обработка ошибки
+        console.error(error);
+        return throwError(error);
+      })
     );
   };
 }

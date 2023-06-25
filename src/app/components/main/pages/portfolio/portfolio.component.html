@@ -1,21 +1,10 @@
-<ng-container *ngIf="isOpenSlider$ |async;then slider;else partfolio"></ng-container>
 
-
-
-
-<ng-template #slider>
-  <app-slider (closeSlider)="closeSlider()" [photoId]="selectedPhotoID$.value"></app-slider>
-</ng-template>
-<ng-template #partfolio>
+  <ng-container *ngIf="photosData$ | async">
+  </ng-container>
   <div class="container">
-    <ng-container
-      *ngFor="
-        let photo of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-      "
-    >
-      <div class="card" (click)="openSlider(photo)">
-        <img src="/assets/img/photos/photo_{{ photo }}.jpg"  loading="lazy" alt="photo_{{ photo }}" />
+    <ng-container *ngFor="let collection of photosData$ | async">
+      <div class="card" (click)="openSlider(collection)">
+        <img [attr.collection]="collection" src="/assets/img/photos/collections/{{ collection }}/1.jpg"  loading="lazy" alt="photo_{{ collection }}" />
       </div>
     </ng-container>
   </div>
-</ng-template>
