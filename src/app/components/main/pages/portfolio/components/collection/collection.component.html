@@ -1,8 +1,8 @@
 <ng-container *ngIf="photos$ | async as data">
   <carousel>
-  <ng-container *ngFor="let photo of data.data">
+  <ng-container *ngFor="let photo of data.data; let  i = index;">
     <slide>
-    <img
+    <img   [class.active]="i === 0" class="slider_img"
     src="/assets/img/photos/collections/{{ data.folder }}/{{photo}}"
     loading="lazy"
     alt="photo"
