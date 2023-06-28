@@ -11,8 +11,12 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
+
 import { Router } from '@angular/router';
+import { first } from 'rxjs';
+
+import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -34,8 +38,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: UntypedFormBuilder,
-    private _authService: AuthService,
-    private _router: Router
+    private _router: Router,
+    private _userService: UserService,
+    private _authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -56,17 +61,40 @@ export class LoginComponent implements OnInit {
 
       if (login === 'admin' && password === 'admin') {
         this._authService.login();
+      } else {
+        this._authService.logout();
+        Object.values(this.validateForm.controls).forEach((control) => {
+          if (control.invalid) {
+            control.markAsDirty();
+            control.updateValueAndValidity({ onlySelf: true });
+          }
+        });
       }
-     else {
-      this._authService.logout();
-      Object.values(this.validateForm.controls).forEach((control) => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
+      this._router.navigateByUrl('/admin');
     }
-    this._router.navigateByUrl('/admin');
   }
-}
+  getUsers() {
+    this._userService
+      .getUsers()
+      .pipe(first())
+      .subscribe((e) => console.log(e));
+  }
+  createUser() {
+    this._userService
+      .createUser('Новый')
+      .pipe(first())
+      .subscribe((e) => console.log(e));
+  }
+  updateUser() {
+    this._userService
+      .updateUser('1', 'Страый')
+      .pipe(first())
+      .subscribe((e) => console.log(e));
+  }
+  deleteUser() {
+    this._userService
+      .deleteUser('2')
+      .pipe(first())
+      .subscribe((e) => console.log(e));
+  }
 }

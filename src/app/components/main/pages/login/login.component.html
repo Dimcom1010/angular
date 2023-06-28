@@ -16,5 +16,10 @@
         </nz-form-item>
 
         <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Войти</button>
+
     </form>
+    <button nz-button class="login-form-button login-form-margin" (click)="getUsers()">getUsers</button>
+    <button nz-button class="login-form-button login-form-margin" (click)="createUser()">createUser</button>
+    <button nz-button class="login-form-button login-form-margin" (click)="updateUser()"> updateUser</button>
+    <button nz-button class="login-form-button login-form-margin" (click)="deleteUser()">deleteUser</button>
 </div>
