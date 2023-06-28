@@ -1,16 +1,34 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private isAdmin$ = new BehaviorSubject<boolean>(false);
+  IsAuth$ = new BehaviorSubject<boolean>(false);
+  token$ = new BehaviorSubject<string>('');
   login(): void {
-    this.isAdmin$.next(true);
+    console.log('login');
+    this.token$.next(this.tokenGen())
+    localStorage.setItem('authToken',JSON.stringify(this.token$.value))
+    this.IsAuth$.next(true);
   }
   logout(): void {
-    this.isAdmin$.next(false);
+    console.log('logout');
+    this.token$.next('')
+    localStorage.setItem('authToken',JSON.stringify(this.token$.value))
+    this.IsAuth$.next(false);
   }
-  public isAdmin = () => this.isAdmin$.value;
+
+
+  tokenGen():string{
+    const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let token = '';
+    for (let i = 0; i < 8; i++) {
+      const randomIndex = Math.floor(Math.random() * chars.length);
+      token += chars[randomIndex];
+    }
+    return token;
+  }
+
 }

@@ -1,37 +1,44 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
-import { Observable } from 'rxjs';
+import {ActivatedRouteSnapshot, Router,RouterStateSnapshot,UrlSegment,UrlTree} from '@angular/router';
+import { Observable, first, map, of } from 'rxjs';
+
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
-  constructor(
-    private _router: Router,
-    private readonly _authService: AuthService
-  ) {}
+export class AuthGuard {
 
+  constructor(private authService: AuthService, private readonly _router:Router) { }
   canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    next:ActivatedRouteSnapshot,
+    state:RouterStateSnapshot
   ):
-    | Observable<boolean | UrlTree>
+     Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log('AuthGuard');
-
-    if (this._authService.isAdmin()) {
-      this._router.navigate([`admin`]);
-      return false;
-    }
-    return true;
+      return this.getIsAuth()
   }
+
+  canLoad(
+    router:Router,
+    segments:UrlSegment[]):Observable<boolean > | Promise<boolean> | boolean {
+    return this.getIsAuth()
+  }
+
+  private getIsAuth() : Observable<boolean>{
+    return this.authService.IsAuth$.pipe(
+      first(),
+      map((isAuth)=>{
+        if (!isAuth){
+          //redirect
+          console.log('ПОЛЬЗОВАТЕЛЬ НЕ ЗАРЕГИСТРИРОВАН!!')
+          this._router.navigateByUrl('/login')
+        }
+        return isAuth;
+      })
+    )
+  }
+
 }

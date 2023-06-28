@@ -15,7 +15,7 @@ const appRoutes: Routes = [
   { path: 'portfolio', component: PortfolioComponent },
   { path: 'collection', component: CollectionComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'admin', component: AdminComponent },
+  { path: 'admin', component: AdminComponent, canActivate:[AuthGuard] },
 
   { path: '**', redirectTo: '/' },
 ];
@@ -24,3 +24,4 @@ const appRoutes: Routes = [
   exports: [RouterModule],
 })
 export class AppRouterModule {}
+

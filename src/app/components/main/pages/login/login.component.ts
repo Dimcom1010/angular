@@ -11,8 +11,8 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +34,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: UntypedFormBuilder,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -52,12 +53,11 @@ export class LoginComponent implements OnInit {
       console.log('submit', this.validateForm.value);
       const login = this.validateForm.value.userName;
       const password = this.validateForm.value.password;
+
       if (login === 'admin' && password === 'admin') {
-        console.log(this._authService.isAdmin());
         this._authService.login();
-        console.log(this._authService.isAdmin());
       }
-    } else {
+     else {
       this._authService.logout();
       Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {
@@ -66,5 +66,7 @@ export class LoginComponent implements OnInit {
         }
       });
     }
+    this._router.navigateByUrl('/admin');
   }
+}
 }
