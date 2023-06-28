@@ -11,8 +11,9 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { first } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: UntypedFormBuilder,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -66,5 +68,29 @@ export class LoginComponent implements OnInit {
         }
       });
     }
+  }
+  getUsers() {
+    this._userService
+      .getUsers()
+      .pipe(first())
+      .subscribe((e) => console.log(e));
+  }
+  createUser() {
+    this._userService
+      .createUser('Новый')
+      .pipe(first())
+      .subscribe((e) => console.log(e));
+  }
+  updateUser() {
+    this._userService
+      .updateUser('1', 'Страый')
+      .pipe(first())
+      .subscribe((e) => console.log(e));
+  }
+  deleteUser() {
+    this._userService
+      .deleteUser('q')
+      .pipe(first())
+      .subscribe((e) => console.log(e));
   }
 }

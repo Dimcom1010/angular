@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, mergeMap, tap, throwError } from 'rxjs';
+import { catchError, map, mergeMap, of, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class GetFotosService {
       catchError((error: HttpErrorResponse) => {
         // Обработка ошибки
         console.error(error);
-        return throwError(error);
+        return of('error', error);
       })
     );
   };
@@ -30,7 +30,7 @@ export class GetFotosService {
       catchError((error: HttpErrorResponse) => {
         // Обработка ошибки
         console.error(error);
-        return throwError(error);
+        return of('error', error);
       })
     );
   };
