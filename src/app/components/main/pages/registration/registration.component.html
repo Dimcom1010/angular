@@ -1,0 +1,31 @@
+<div class="login-wrapper">
+    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+        <nz-form-item>
+            <nz-form-control nzErrorTip="Введите ваш логин">
+                <nz-input-group >
+                    <input type="text" nz-input formControlName="userName" placeholder="Username" />
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control nzErrorTip="Пожалуйста введите пароль">
+                <nz-input-group >
+                    <input type="password" nz-input formControlName="password" placeholder="Password" />
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control nzErrorTip="Пароль не совпадает">
+                <nz-input-group >
+                    <input type="password" nz-input formControlName="checkPassword" placeholder="Password" />
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Зарегистрироваться</button>
+    </form>
+    <div class="login-wrapper__center">
+        <button nz-button nzType="text" (click)="goLogin()">У меня уже есть аккаунт</button>
+    </div>
+    
+   
+</div>

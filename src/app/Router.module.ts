@@ -8,6 +8,7 @@ import { CollectionComponent } from './components/main/pages/portfolio/component
 import { AdminComponent } from './components/main/pages/admin/admin.component';
 import { LoginComponent } from './components/main/pages/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { RegistrationComponent } from './components/main/pages/registration/registration.component';
 
 const appRoutes: Routes = [
   { path: '', component: AboutComponent },
@@ -15,7 +16,9 @@ const appRoutes: Routes = [
   { path: 'portfolio', component: PortfolioComponent },
   { path: 'collection', component: CollectionComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'admin', component: AdminComponent, canActivate:[AuthGuard] },
+  { path: 'registration', component: RegistrationComponent },
+  // { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: AdminComponent },
 
   { path: '**', redirectTo: '/' },
 ];
@@ -24,4 +27,3 @@ const appRoutes: Routes = [
   exports: [RouterModule],
 })
 export class AppRouterModule {}
-

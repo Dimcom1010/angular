@@ -14,12 +14,14 @@
                 </nz-input-group>
             </nz-form-control>
         </nz-form-item>
-
         <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Войти</button>
-
     </form>
-    <button nz-button class="login-form-button login-form-margin" (click)="getUsers()">getUsers</button>
+    <div class="login-wrapper__center">
+        <button nz-button nzType="text" (click)="registration()">Регистрация</button>
+    </div>
+    
+    <!-- <button nz-button class="login-form-button login-form-margin" (click)="getUsers()">getUsers</button>
     <button nz-button class="login-form-button login-form-margin" (click)="createUser()">createUser</button>
     <button nz-button class="login-form-button login-form-margin" (click)="updateUser()"> updateUser</button>
-    <button nz-button class="login-form-button login-form-margin" (click)="deleteUser()">deleteUser</button>
+    <button nz-button class="login-form-button login-form-margin" (click)="deleteUser()">deleteUser</button> -->
 </div>

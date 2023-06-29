@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
+const { checkUserAndPassword, checkUser } = require("./db/auth");
 const {
   createUsersTable,
   addUser,
@@ -80,5 +81,27 @@ app.delete("/api/users/:id", async (req, res) => {
 });
 
 /**КОНТРОЛЛЕР USER end */
+
+/**КОНТРОЛЛЕР AUTH users */
+
+//проверка уникальности имени пользователя
+//проверка логина и поролы
+
+app.post("/api/login", async (req, res) => {
+  const user = req?.body;
+  console.log("user", user);
+  const userName = user?.name;
+  const userPassowd = user?.password;
+  if (userName && userPassowd) {
+    res.status(200).json(await checkUserAndPassword(userName, userPassowd));
+    console.log("checkUserAndPassword");
+  }
+  if (userName && !userPassowd) {
+    console.log("checkUser");
+    res.status(200).json(await checkUser(userName));
+  }
+});
+
+/**КОНТРОЛЛЕР AUTH end */
 
 module.exports = { app, port };

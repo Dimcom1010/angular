@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzIconModule } from 'ng-zorro-antd/icon';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -11,16 +7,18 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
 import { Router } from '@angular/router';
-import { first, tap } from 'rxjs';
-
-import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 import { User } from '../models/User';
+import { first, of, switchMap, tap } from 'rxjs';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-registration',
   standalone: true,
   imports: [
     CommonModule,
@@ -31,19 +29,17 @@ import { User } from '../models/User';
     ReactiveFormsModule,
     NzIconModule,
   ],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.less'],
+  templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.less'],
 })
-export class LoginComponent implements OnInit {
+export class RegistrationComponent implements OnInit {
   validateForm!: UntypedFormGroup;
-
   constructor(
     private fb: UntypedFormBuilder,
     private _router: Router,
     private _userService: UserService,
     private _authService: AuthService
   ) {}
-
   ngOnInit(): void {
     this.initForm();
   }
@@ -51,6 +47,7 @@ export class LoginComponent implements OnInit {
     this.validateForm = this.fb.group({
       userName: [null, [Validators.required]],
       password: [null, [Validators.required]],
+      checkPassword: [null, [Validators.required]],
     });
   }
 
@@ -58,28 +55,22 @@ export class LoginComponent implements OnInit {
     if (this.validateForm.valid) {
       const name = this.validateForm.value.userName;
       const password = this.validateForm.value.password;
-      const res = this._authService
-        .checkUser(name, password)
-        .pipe(first())
-        .subscribe((e) => {
-          e ? this._authService.login() : this._authService.logout();
-          if (e) {
-            this._router.navigateByUrl('admin');
-          }
-        });
+
+      const res = this._authService.checkUserName(name).pipe(first());
+
+      res.subscribe((e) => {
+        !e && this.createUser(name, password);
+      });
     }
   }
-  getUsers() {
-    this._userService
-      .getUsers()
-      .pipe(first())
-      .subscribe((e) => console.log(e));
-  }
-  createUser() {
-    const createUser: User = {
-      name: 'Новый пользователь',
-      password: 'пароль',
-    };
+  // getUsers() {
+  //   this._userService
+  //     .getUsers()
+  //     .pipe(first())
+  //     .subscribe((e) => console.log(e));
+  // }
+  createUser(name: string, password: string) {
+    const createUser: User = { name, password };
     this._userService
       .createUser(createUser)
       .pipe(first())
@@ -101,8 +92,7 @@ export class LoginComponent implements OnInit {
   //     .pipe(first())
   //     .subscribe((e) => console.log(e));
   // }
-  registration() {
-    console.log('registration');
-    this._router.navigate(['registration']);
+  goLogin() {
+    this._router.navigate(['login']);
   }
 }

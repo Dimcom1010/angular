@@ -5,10 +5,10 @@ import { catchError, map, mergeMap, of, tap, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class GetFotosService {
+export class PhotoService {
   constructor(private httpClient: HttpClient) {}
 
-  getFotos = () => {
+  getAllCollections = () => {
     const URL: string = 'http://localhost:3000/api/photos';
 
     return this.httpClient.get(URL).pipe(
@@ -20,7 +20,8 @@ export class GetFotosService {
       })
     );
   };
-  getCollections = (name: any) => {
+
+  getCollection = (name: any) => {
     const URL: string = 'http://localhost:3000/api/collection';
 
     const collectionName = name;
