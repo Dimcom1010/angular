@@ -20,13 +20,13 @@ async function getUsers() {
   try {
     const query = `SELECT * FROM users;`;
     const result = await pool.query(query);
-    const data={
-      nodes:result.rows,
-      totalCount:result.rowCount
-    }
-    return data
+    const data = {
+      nodes: result.rows,
+      totalCount: result.rowCount,
+    };
+    return data;
   } catch (error) {
-    return `Ошибка получения пользователей, ${error} `
+    return `Ошибка получения пользователей, ${error} `;
   }
 }
 // Добавление новой записи в таблицу users
@@ -36,41 +36,35 @@ async function addUser(name, password) {
       VALUES ($1, $2)
       RETURNING *`;
     const values = [name, password];
-
     const result = await pool.query(query, values);
-
-    return `Новый пользователь добавлен, ${error,result.rows[0]}`
+    return `Новый пользователь добавлен, ${(error, result.rows[0])}`;
   } catch (error) {
-    return `Новый пользователь не добавлен, ${error}`
+    return `Новый пользователь не добавлен, ${error}`;
   }
 }
 // Изменение записи пользователя ??
-async function updateUser(id, name, password) {
+async function updateUser(name, password, id) {
   try {
-    const query = `UPDATE users SET age = '18' WHERE id = '3'
-      VALUES ($1, $2, $3)
+    const query = `UPDATE users SET name = $1, password=$2 WHERE id = $3
       RETURNING *`;
-    const values = [id,name, password];
-
+    const values = [name, password, id];
     const result = await pool.query(query, values);
-
-    return `Новый пользователь добавлен, ${error,result.rows[0]}`
+    return `Новый пользователь добавлен, ${(error, result.rows[0])}`;
   } catch (error) {
-    return `Новый пользователь добавлен, ${error}`
+    return `Новый пользователь добавлен, ${error}`;
   }
 }
-
 
 // Удаление пользователя ??
 async function delUser(id) {
   try {
-    const query = `'DELETE FROM users WHERE id = %s', (id) VALUES ($1);`
+    const query = "DELETE FROM users WHERE id = $1";
     const values = [id];
     const result = await pool.query(query, values);
-    return `Запись о пользователе удалена:, ${result.rows[0]}`;
+    return `Запись о пользователе удалена:, ${JSON.stringify(result)}`;
   } catch (error) {
-    return  `Ошибка при удалении записи:, ${error}`;
+    return `Ошибка при удалении записи:, ${error}`;
   }
 }
 
-module.exports = { createUsersTable, addUser,getUsers,delUser };
+module.exports = { createUsersTable, addUser, getUsers, delUser, updateUser };

@@ -17,6 +17,7 @@ import { first } from 'rxjs';
 
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { User } from '../models/User';
 
 @Component({
   selector: 'app-login',
@@ -80,20 +81,28 @@ export class LoginComponent implements OnInit {
       .subscribe((e) => console.log(e));
   }
   createUser() {
+    const createUser: User = {
+      name: 'Новый пользователь',
+      password: 'пароль',
+    };
     this._userService
-      .createUser('Новый')
+      .createUser(createUser)
       .pipe(first())
       .subscribe((e) => console.log(e));
   }
   updateUser() {
+    const updateUser: User = {
+      name: 'MegoName',
+      password: 'MegoName',
+    };
     this._userService
-      .updateUser('1', 'Страый')
+      .updateUser('5', updateUser)
       .pipe(first())
       .subscribe((e) => console.log(e));
   }
   deleteUser() {
     this._userService
-      .deleteUser('2')
+      .deleteUser('4')
       .pipe(first())
       .subscribe((e) => console.log(e));
   }

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { User, User_nodes } from '../components/main/pages/models/User';
 
 @Injectable({
   providedIn: 'root',
@@ -11,14 +12,14 @@ export class UserService {
 
   getUsers() {
     console.log('getUsers');
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<User_nodes[]>(this.apiUrl);
   }
 
-  createUser(user: any) {
+  createUser(user: User) {
     return this.http.post<any>(this.apiUrl, user);
   }
 
-  updateUser(id: string, user: any) {
+  updateUser(id: string, user: User) {
     return this.http.put<any>(`${this.apiUrl}/${id}`, user);
   }
 
