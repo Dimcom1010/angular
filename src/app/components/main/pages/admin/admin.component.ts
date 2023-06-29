@@ -1,39 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PhotoService } from 'src/app/services/photos.service';
-import { Observable } from 'rxjs';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { UploadComponent } from './components/upload/upload.component';
+
+interface PhotoCollapse {
+  active: boolean;
+  name: string;
+  disabled: boolean;
+}
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, NzCollapseModule],
+  imports: [CommonModule, NzButtonModule, NzCollapseModule, UploadComponent],
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.less'],
 })
 export class AdminComponent implements OnInit {
-  photosData$ = new Observable<any>();
-  panels = [
-    {
-      active: true,
-      name: 'This is panel header 1',
-      childPanel: [
-        {
-          active: false,
-          name: 'This is panel header 1-1',
-        },
-      ],
-    },
-    {
-      active: false,
-      name: 'This is panel header 2',
-    },
-    {
-      active: false,
-      name: 'This is panel header 3',
-    },
-  ];
+  photosData: any = [];
+  data: PhotoCollapse[] = [];
+
   constructor(private readonly _photosService: PhotoService) {}
-  ngOnInit(): void {
-    this.photosData$ = this._photosService.getAllCollections();
+
+  async ngOnInit(): Promise<void> {
+    this.photosData = await this._photosService.getAllCollectionsPromise();
+    this.data = this.photosData.map((e: string) => {
+      return {
+        active: false,
+        disabled: false,
+        name: e,
+      };
+    });
   }
 }

@@ -9,12 +9,22 @@ import { AboutComponent } from './components/main/pages/about/about.component';
 import { ContactsComponent } from './components/main/pages/contacts/contacts.component';
 import { PortfolioComponent } from './components/main/pages/portfolio/portfolio.component';
 import { AppRouterModule } from './Router.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [AppRouterModule,BrowserModule,FooterComponent, HeaderComponent, MainComponent,AboutComponent,ContactsComponent,PortfolioComponent],
+  imports: [
+    AppRouterModule,
+    BrowserModule,
+    FooterComponent,
+    HeaderComponent,
+    MainComponent,
+    AboutComponent,
+    ContactsComponent,
+    PortfolioComponent,
+    BrowserAnimationsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
-  
 })
 export class AppModule {}

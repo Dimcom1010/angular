@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, mergeMap, of, tap, throwError } from 'rxjs';
+import { catchError, firstValueFrom, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +19,11 @@ export class PhotoService {
         return of('error', error);
       })
     );
+  };
+  getAllCollectionsPromise = () => {
+    const URL: string = 'http://localhost:3000/api/photos';
+
+    return firstValueFrom(this.httpClient.get(URL));
   };
 
   getCollection = (name: any) => {
