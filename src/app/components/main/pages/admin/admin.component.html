@@ -1,17 +1,12 @@
-
 Список папок
 
 <ng-container *ngIf="data">
 
-<nz-collapse>
-  <nz-collapse-panel
-    *ngFor="let item of data"
-    [nzHeader]="item.name"
-    [nzActive]="item.active"
-    [nzDisabled]="item.disabled"
-  >
-<app-upload></app-upload>
+  <nz-collapse>
+    <nz-collapse-panel *ngFor="let item of data" [nzHeader]="item.name" [nzActive]="item.active"
+      [nzDisabled]="item.disabled">
+      <app-upload [folderName]="item.name" [isOpen]="item.active"></app-upload>
 
-  </nz-collapse-panel>
-</nz-collapse>
+    </nz-collapse-panel>
+  </nz-collapse>
 </ng-container>

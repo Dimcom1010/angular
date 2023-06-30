@@ -110,7 +110,10 @@ app.post("/api/login", async (req, res) => {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./src/assets/img/photos/collections/"); // указываем папку на сервере для сохранения файлов
+    const folderName = req.query.folderName;
+    console.log(folderName);
+
+    cb(null, `./src/assets/img/photos/collections/${folderName}`); // указываем папку на сервере для сохранения файлов
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -120,10 +123,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.post("/api/upload", upload.single("file"), (req, res) => {
-  console.log("/api/upload post");
-  // обработка загруженного файла и отправка ответа клиенту
-  console.log("обработка загруженного файла и отправка ответа клиенту");
-  console.log(req.query);
   res.json({ filename: req.file.filename });
 });
 

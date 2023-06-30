@@ -22,22 +22,18 @@ export class PhotoService {
   };
   getAllCollectionsPromise = () => {
     const URL: string = 'http://localhost:3000/api/photos';
-
     return firstValueFrom(this.httpClient.get(URL));
   };
 
-  getCollection = (name: any) => {
+  getCollection = (collectionName: any) => {
     const URL: string = 'http://localhost:3000/api/collection';
+    return this.httpClient.get(URL, { params: { collectionName } });
+  };
 
-    const collectionName = name;
-
-    return this.httpClient.get(URL, { params: { collectionName } }).pipe(
-      tap((e) => console.log(e)),
-      catchError((error: HttpErrorResponse) => {
-        // Обработка ошибки
-        console.error(error);
-        return of('error', error);
-      })
+  getCollectionPromise = (collectionName: any) => {
+    const URL: string = 'http://localhost:3000/api/collection';
+    return firstValueFrom(
+      this.httpClient.get(URL, { params: { collectionName } })
     );
   };
 }

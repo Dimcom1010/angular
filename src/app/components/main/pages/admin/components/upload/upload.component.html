@@ -1,17 +1,11 @@
-<p>upload works!</p>
 <div class="clearfix">
-    <nz-upload
-      class="upload-list-inline"
-      [nzAction]="upLoadURL"
-      nzListType="picture"
-      [(nzFileList)]="fileList2"
-      (nzChange)="handleUpload($event)"
-    >
-      <button nz-button>
-        <span>
-          <span nz-icon nzType="upload"></span>
-          Upload
-        </span>
-      </button>
-    </nz-upload>
-  </div>
+  <nz-upload [nzMultiple]="true" class="upload-list-inline" [nzAction]="upLoadURL" nzListType="picture"
+    [(nzFileList)]="dataPhotosInFolder" (nzChange)="handleUpload($event)">
+    <button nz-button>
+      <span>
+        <span nz-icon nzType="upload"></span>
+        Загрузить файлы
+      </span>
+    </button>
+  </nz-upload>
+</div>
