@@ -5,13 +5,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { SliderComponent } from './components/slider/slider.component';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 @Component({
   selector: 'app-portfolio',
   templateUrl: './portfolio.component.html',
   styleUrls: ['./portfolio.component.less'],
   standalone: true,
-  imports: [CommonModule, HttpClientModule, SliderComponent],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    SliderComponent,
+    LazyLoadImageModule,
+  ],
 })
 export class PortfolioComponent implements OnInit {
   photosData$: Observable<any> | undefined;

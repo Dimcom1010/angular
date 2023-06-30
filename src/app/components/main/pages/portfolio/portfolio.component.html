@@ -4,7 +4,7 @@
   <div class="container">
     <ng-container *ngFor="let collection of photosData$ | async">
       <div class="card" (click)="openSlider(collection)">
-        <img [attr.collection]="collection" src="/assets/img/photos/collections/{{ collection }}/1.jpg"  loading="lazy" alt="photo_{{ collection }}" />
+        <img [attr.collection]="collection" src="/assets/img/photos/collections/{{ collection }}/1.jpg"  lazyLoad="/assets/img/photos/collections/{{ collection }}/1.jpg" lazyLoadImage alt="photo_{{ collection }}" />
       </div>
     </ng-container>
   </div>
