@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
+const multer = require("multer");
+
 const { checkUserAndPassword, checkUser } = require("./db/auth");
 const {
   createUsersTable,
@@ -103,5 +105,36 @@ app.post("/api/login", async (req, res) => {
 });
 
 /**КОНТРОЛЛЕР AUTH end */
+
+/**КОНТРОЛЛЕР UPLOAD FILES start*/
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./src/assets/img/photos/collections/"); // указываем папку на сервере для сохранения файлов
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage });
+
+app.post("/api/upload", upload.single("file"), (req, res) => {
+  console.log("/api/upload post");
+  // обработка загруженного файла и отправка ответа клиенту
+  console.log("обработка загруженного файла и отправка ответа клиенту");
+  console.log(req.query);
+  res.json({ filename: req.file.filename });
+});
+
+app.get("/api/upload", (req, res) => {
+  console.log("/api/upload get");
+  // отправка файла клиенту
+  const fileName = req.params.filename;
+  const filePath = "./src/assets/img/photos/collections/" + fileName;
+  res.download(filePath);
+});
+
+/**КОНТРОЛЛЕР UPLOAD FILES end */
 
 module.exports = { app, port };

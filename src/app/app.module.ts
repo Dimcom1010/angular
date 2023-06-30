@@ -10,7 +10,8 @@ import { ContactsComponent } from './components/main/pages/contacts/contacts.com
 import { PortfolioComponent } from './components/main/pages/portfolio/portfolio.component';
 import { AppRouterModule } from './Router.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { NzIconModule, NZ_ICONS } from 'ng-zorro-antd/icon';
+import { DownloadOutline } from '@ant-design/icons-angular/icons';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -23,8 +24,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ContactsComponent,
     PortfolioComponent,
     BrowserAnimationsModule,
+    NzIconModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: NZ_ICONS,
+      useValue: [DownloadOutline],
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

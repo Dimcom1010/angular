@@ -4,6 +4,7 @@ import { PhotoService } from 'src/app/services/photos.service';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { UploadComponent } from './components/upload/upload.component';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 interface PhotoCollapse {
   active: boolean;
@@ -13,7 +14,13 @@ interface PhotoCollapse {
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, NzButtonModule, NzCollapseModule, UploadComponent],
+  imports: [
+    CommonModule,
+    NzButtonModule,
+    NzCollapseModule,
+    UploadComponent,
+    NzIconModule,
+  ],
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.less'],
 })
