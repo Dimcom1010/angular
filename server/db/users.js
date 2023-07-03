@@ -14,6 +14,18 @@ async function createUsersTable() {
     console.error("Ошибка при создании таблицы users:", error);
   }
 }
+// Создание таблицы users
+async function createPhotosTable() {
+  try {
+    const query = ` CREATE TABLE IF NOT EXISTS photos (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      description TEXT)`;
+    await pool.query(query);
+  } catch (error) {
+    console.error("Ошибка при создании таблицы photos:", error);
+  }
+}
 
 // метод получения пользователей
 async function getUsers() {
@@ -67,4 +79,5 @@ async function delUser(id) {
   }
 }
 
-module.exports = { createUsersTable, addUser, getUsers, delUser, updateUser };
+
+module.exports = { createUsersTable,createPhotosTable, addUser, getUsers, delUser, updateUser };

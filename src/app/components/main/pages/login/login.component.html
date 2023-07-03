@@ -1,14 +1,14 @@
 <div class="login-wrapper">
     <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
         <nz-form-item>
-            <nz-form-control nzErrorTip="Please input your username!">
+            <nz-form-control nzErrorTip="Введите ваш логин">
                 <nz-input-group >
                     <input type="text" nz-input formControlName="userName" placeholder="Username" />
                 </nz-input-group>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-            <nz-form-control nzErrorTip="Please input your Password!">
+            <nz-form-control nzErrorTip="Пожалуйста введите пароль">
                 <nz-input-group >
                     <input type="password" nz-input formControlName="password" placeholder="Password" />
                 </nz-input-group>
@@ -19,7 +19,7 @@
     <div class="login-wrapper__center">
         <button nz-button nzType="text" (click)="registration()">Регистрация</button>
     </div>
-    
+
     <!-- <button nz-button class="login-form-button login-form-margin" (click)="getUsers()">getUsers</button>
     <button nz-button class="login-form-button login-form-margin" (click)="createUser()">createUser</button>
     <button nz-button class="login-form-button login-form-margin" (click)="updateUser()"> updateUser</button>

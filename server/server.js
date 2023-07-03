@@ -6,11 +6,13 @@ const multer = require("multer");
 const { checkUserAndPassword, checkUser } = require("./db/auth");
 const {
   createUsersTable,
+  createPhotosTable,
   addUser,
   getUsers,
   delUser,
   updateUser,
 } = require("./db/users");
+const { log } = require("console");
 
 const app = express();
 const port = 3000;
@@ -57,6 +59,7 @@ app.get("/api/collection", (req, res) => {
 
 // Создание таблицы users
 createUsersTable();
+createPhotosTable();
 
 app.get("/api/users", async (req, res) => {
   res.status(200).json(await getUsers());
@@ -106,13 +109,53 @@ app.post("/api/login", async (req, res) => {
 
 /**КОНТРОЛЛЕР AUTH end */
 
+/**КОНТРОЛЛЕР ADD FOLDER */
+
+app.get("/api/add_folder", async (req, res) => {
+  const folderName=req.query.folderName
+
+  // Проверяем, что переменная folderName не пустая
+  if (!folderName) {
+    res.status(400).json({ error: "Название папки не указано" });
+    return;
+  }
+  const folderPath = `./src/assets/img/photos/collections/${folderName}`
+  try {
+    // Создаем новую папку
+    fs.mkdirSync(folderPath);
+
+    res.status(200).json({ message: "Папка успешно создана" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Ошибка при создании папки" });
+  }
+});
+
+/**КОНТРОЛЛЕР ADD FOLDER end */
+
+/**КОНТРОЛЛЕР DEL FOLDER */
+
+app.get("/api/del_folder", async (req, res) => {
+  const folderName = req.query.folderName;
+  const folderPath = `./src/assets/img/photos/collections/${folderName}`;
+
+  fs.rm(folderPath, { recursive: true }, (err) => {
+    if (err) {
+      res.status(500).send(`Ошибка при удалении папки ${folderName}`);
+    } else {
+      res.status(200).send(`Папка ${folderName} успешно удалена`);
+    }
+  });
+});
+
+/**КОНТРОЛЛЕР DEL FOLDER end */
+
 /**КОНТРОЛЛЕР UPLOAD FILES start*/
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+    console.log('!!!',file)
     const folderName = req.query.folderName;
-    console.log(folderName);
-
     cb(null, `./src/assets/img/photos/collections/${folderName}`); // указываем папку на сервере для сохранения файлов
   },
   filename: (req, file, cb) => {

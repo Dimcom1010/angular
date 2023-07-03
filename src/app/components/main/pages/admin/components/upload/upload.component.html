@@ -1,5 +1,5 @@
 <div class="clearfix">
-  <nz-upload [nzMultiple]="true" class="upload-list-inline" [nzAction]="upLoadURL" nzListType="picture"
+  <nz-upload [nzMultiple]="true" class="upload-list-inline" nzFileType="image/png,image/jpeg,image/gif,image/bmp" [nzAction]="upLoadURL" nzListType="picture"
     [(nzFileList)]="dataPhotosInFolder" (nzChange)="handleUpload($event)">
     <button nz-button>
       <span>

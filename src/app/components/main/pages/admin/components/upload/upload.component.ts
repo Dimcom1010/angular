@@ -37,8 +37,8 @@ export class UploadComponent implements OnInit {
   handleUpload(event: any): void {
     if (event?.file?.status === 'done') {
       this.getData();
-      console.log('Файлы успешно загружены');
     }
+
   }
   async getData() {
     const res: any = await this._photoService.getCollectionPromise(
