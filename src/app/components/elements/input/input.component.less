@@ -1,0 +1,66 @@
+@animation: 0.6s ease-in-out ;
+.intut__wrapper {
+  width: 100%;
+  display: flex;
+  border-radius: 30px;
+  background-color: #fff;
+  box-shadow: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
+  padding: 15px 25px;
+}
+.input{
+  width: 100%;
+  line-height:3px ;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color:rgba(173, 184, 204, 1)
+}
+.input:focus{
+  outline:none;
+}
+
+
+.serchButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  transition: all @animation;
+
+}
+.intut__wrapper:hover .serchButton{
+  animation: rotate @animation;
+}
+
+@media (min-width: 1200px) {
+  .intut__wrapper {padding: 15px 25px;}
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .intut__wrapper {padding: 15px 25px;}
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .intut__wrapper {padding: 15px 25px;}
+}
+@media (min-width: 480px) and (max-width: 767px) {
+  .intut__wrapper {padding: 10px 20px;}
+}
+@media (min-width: 320px) and (max-width: 479px) {
+  .intut__wrapper {padding: 7px 14px;}
+}
+@media (max-width: 320px) {
+  .intut__wrapper {padding: 5px 10px;}
+}
+
+
+
+
+@keyframes rotate {
+  0% { transform: rotate3d(0, 0, 0, 0 ) }
+  50% {transform: rotate3d(3, 3, 0, 90deg )}
+  100% { transform: rotate3d(0, 0, 0, 0 ) }
+ }

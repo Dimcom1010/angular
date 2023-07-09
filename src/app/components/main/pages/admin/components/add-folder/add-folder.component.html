@@ -1,0 +1,26 @@
+<form
+  nz-form
+  [nzLayout]="'inline'"
+  [formGroup]="validateForm"
+  (ngSubmit)="submitForm()"
+>
+  <nz-form-item class="input">
+    <nz-form-control nzErrorTip="Введите имя папки">
+      <nz-input-group nzPrefixIcon="user" >
+        <input
+          formControlName="folderName"
+          nz-input
+          placeholder="Новая папка"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+    <nz-form-item class="button">
+      <nz-form-control>
+        <button nz-button nzType="primary" [disabled]="!validateForm.valid">
+          Создать
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+
+</form>

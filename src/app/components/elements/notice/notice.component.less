@@ -1,0 +1,39 @@
+@background:rgba(136, 51, 255, 0.1);
+@backgroundFill:#8833FF;
+@textColor:#ffffff;
+.circle{
+  display: flex;
+  border-radius: 50%;
+    justify-content: center;
+  align-items: center;
+}
+.notie {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background-color: @background;
+}
+.notice_img {
+
+  svg{
+    path{
+      fill:@backgroundFill;
+    }
+  }
+}
+.notice_notification {
+  position: absolute;
+  top: 0;
+  right: 0px;
+  width: 20px;
+  height: 20px;
+  background-color: @backgroundFill;
+  font-size: 8px;
+  font-weight: 900;
+  color:@textColor;
+}
+.box{
+  display: block;
+  background-color: #8833FF;
+}
+

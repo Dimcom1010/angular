@@ -1,0 +1,28 @@
+@background: rgba(136, 51, 255, 1);
+@elementSize: 14px;
+@animation: 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+.burger {
+  display: flex;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: transform @animation;
+}
+.burger_elements {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+}
+.burger_element {
+  width: @elementSize;
+  height: @elementSize;
+  background: @background;
+  border-radius: 50%;
+}
+.burger:hover {
+  transform: rotateZ(180deg);
+}
+
