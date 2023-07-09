@@ -1,0 +1,24 @@
+.footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  & > * + * {
+    margin-left: 5px;
+  }
+  &-search {
+    width: 100%;
+    ::ng-deep {
+      nz-input-group {
+        .ant-input-group-addon {
+          padding: 0;
+        }
+      }
+    }
+  }
+}

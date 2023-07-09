@@ -106,6 +106,24 @@ app.post("/api/login", async (req, res) => {
     res.status(200).json(await checkUser(userName));
   }
 });
+/** */
+app.post("/api/signin", async (req, res) => {
+    console.log("signin",req);
+    res.status(200).json('signin');
+
+});
+app.post("/api/signup", async (req, res) => {
+    console.log("signup",req);
+    res.status(200).json('signup');
+
+});
+app.post("/api/tokenSignIn", async (req, res) => {
+    console.log("tokenSignIn",req);
+    res.status(200).json('tokenSignIn');
+
+});
+
+
 
 /**КОНТРОЛЛЕР AUTH end */
 
@@ -154,7 +172,6 @@ app.get("/api/del_folder", async (req, res) => {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    console.log('!!!',file)
     const folderName = req.query.folderName;
     cb(null, `./src/assets/img/photos/collections/${folderName}`); // указываем папку на сервере для сохранения файлов
   },

@@ -1,0 +1,45 @@
+<nz-input-group [nzSuffix]="inputClearTpl">
+  <input
+    class="input"
+    type="text"
+    nzTrigger="click"
+    placeholder="Выбор радикалов"
+
+    readonly
+    nz-dropdown
+    [value]="selected | selectRadicals"
+    [nzDropdownMenu]="menu"
+    [disabled]="disabled()"
+  />
+</nz-input-group>
+<ng-template #inputClearTpl>
+  <span
+    nz-icon
+    title="Очистить"
+    class="ant-input-clear-icon"
+    nzTheme="fill"
+    nzType="close-circle"
+    *ngIf="selected?.length"
+    (click)="clearAll()"
+  ></span>
+</ng-template>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <nz-card nzSize="small" [nzLoading]="isLoading()">
+    <div class="radicals">
+      <ng-container *ngFor="let radical of radicals(); let i = index">
+        <div class="divider" *ngIf="radical.count_traits !== radicals()?.[i - 1]?.count_traits">
+          {{ radical.count_traits }}
+        </div>
+        <div
+          class="radical"
+          [title]="radical.kanji"
+          [ngClass]="{ selected: radical.selected }"
+          (click)="radical.selected = !radical.selected; changeSelected()"
+        >
+          {{ radical.kanji }}
+        </div>
+      </ng-container>
+    </div>
+  </nz-card>
+</nz-dropdown-menu>

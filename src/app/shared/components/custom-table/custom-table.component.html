@@ -1,0 +1,97 @@
+<nz-table
+  nzBordered
+  nzTemplateMode
+  nzTableLayout="fixed"
+  nzSize="small"
+  [nzScroll]="{ x: width, y: heigth }"
+  [nzTitle]="titleTpl"
+  [nzFooter]="footerTpl"
+  [nzLoading]="isLoading()"
+>
+  <thead>
+    <tr>
+      <th
+        *ngFor="let col of columns"
+        [nzWidth]="col.width ?? null"
+        [nzShowSort]="col?.isSort"
+        [nzSortOrder]="sorting()?.key === col.key && sorting()?.order ? sorting()!.order : null"
+        (nzSortOrderChange)="sorting.set({ key: col.key, order: $event })"
+      >
+        {{ col.name }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let element of data(); let index = index" [ngClass]="{ selected: selected() === index }">
+      <td
+        *ngFor="let column of columns"
+        (click)="clickedRow(element, column, index)"
+        (dblclick)="dbClickedRow(element, column)"
+      >
+        <ng-template
+          *ngIf="templatesKeyMap[column.key]; else simpleShow"
+          [ngTemplateOutlet]="templatesKeyMap[column.key].templateRef"
+          [ngTemplateOutletContext]="{ $implicit: element }"
+        >
+        </ng-template>
+        <!-- вывод просто строки -->
+        <ng-template #simpleShow>
+          {{ element[column.key] }}
+        </ng-template>
+      </td>
+    </tr>
+    <tr *ngIf="!data()?.length">
+      <td [colSpan]="columns.length">
+        <nz-empty></nz-empty>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<ng-template #footerTpl>
+  <div class="footer">
+    <div class="footer-total">
+      Количество записей: <b>{{ count() }}</b>
+    </div>
+    <div class="footer-pagination">
+      <nz-pagination
+        nzShowSizeChanger
+        [nzTotal]="count()"
+        [nzPageIndex]="pagination().pageIndex"
+        [nzPageSize]="pagination().pageSize"
+        (nzPageIndexChange)="paginationEvent($event, pagination().pageSize)"
+        (nzPageSizeChange)="paginationEvent(pagination().pageIndex, $event)"
+      >
+      </nz-pagination>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #titleTpl>
+  <div class="header">
+    <div class="header-template">
+      <ng-content select="[actions]"></ng-content>
+    </div>
+    <div class="header-search">
+      <nz-input-group [nzSuffix]="inputClearTpl">
+        <input
+          type="text"
+          [ngModel]="search()"
+          (ngModelChange)="search.set($event)"
+          nz-input
+          placeholder="Текст для поиска"
+        />
+      </nz-input-group>
+      <ng-template #inputClearTpl>
+        <span
+          nz-icon
+          class="ant-input-clear-icon"
+          nzTheme="fill"
+          nzType="close-circle"
+          *ngIf="search()"
+          (click)="search.set(null)"
+        ></span>
+      </ng-template>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,19 @@
+<nz-select
+  nzShowSearch
+  nzServerSearch
+  nzAutoClearSearchValue
+  [ngModel]="selectedFormItem()"
+  [nzPlaceHolder]="placeholder"
+  (ngModelChange)="selectedItem($event)"
+  (nzOnSearch)="onSearch($event)"
+  (nzOpenChange)="openDropdown.set($event); searchChange$.next(searchChange$.value); !$event && list.set([])"
+  (nzScrollToBottom)="scroll()"
+>
+  <ng-container *ngFor="let item of list()">
+    <nz-option [nzValue]="item" [nzLabel]="item.label"></nz-option>
+  </ng-container>
+  <nz-option *ngIf="isLoading()" nzDisabled nzCustomContent>
+    <span nz-icon nzType="loading" class="loading-icon"></span>
+    Загрузка...
+  </nz-option>
+</nz-select>
